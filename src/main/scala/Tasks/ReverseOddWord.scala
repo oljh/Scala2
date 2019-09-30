@@ -14,7 +14,7 @@ object ReverseOddWord {
     var l: List[String] = (rex findAllIn rtext).toList
     println(l)
 
-    for (k <- 0 to l.size - 1) {
+    for (k <- 0 until l.size) {
       print(" ")
       if (k % 2 != 0) {
         print(l(k).reverse)

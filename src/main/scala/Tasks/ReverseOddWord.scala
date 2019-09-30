@@ -14,13 +14,16 @@ object ReverseOddWord {
     var l: List[String] = (rex findAllIn rtext).toList
     println(l)
 
-
-    l.foreach(f => for (k <- 0 to f.size){ if (k%2!=0){print(f.reverse)}})
-
-
+    for (k <- 0 to l.size - 1) {
+      print(" ")
+      if (k % 2 != 0) {
+        print(l(k).reverse)
+      }
+      else print(l(k))
     }
 
 
+  }
 
 
 }

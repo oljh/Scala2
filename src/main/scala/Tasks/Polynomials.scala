@@ -1,12 +1,15 @@
 package Tasks
 
+import scala.collection.mutable.ArrayBuffer
+
 object Polynomials extends App {
 
- println(new Polynomial(5.9,1.5,2.3,3.8))
+  println(new Poly(5.9, 1.5, 2.3, 3.8))
 
 }
 
-class Polynomial(coef: Double*) {
+class Poly(coeff: Double*) {
+  var result: String = ""
 
 
   def getDegree: Int = {
@@ -14,16 +17,19 @@ class Polynomial(coef: Double*) {
   }
 
   override def toString: String = {
-var i:Int= coef.size
-  coef.reverse.foreach(f => printf(f +"x^%d ",1))
-""
+
+    for (i <- coeff.indices) {
+      result = coeff(i) + "x^" + i + "+" + result
+    }
+
+    result
   }
 
   def evaluate(x: Double): Double = {
     x
   }
+}
 
-  def add(another: Polynomial) = {
+class Monomial(sign:Boolean,c:Double,n:Int){
 
-  }
 }

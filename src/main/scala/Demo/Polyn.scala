@@ -1,7 +1,7 @@
 package Demo
 
 
-object Polynomials {
+object Polyn {
   class Poly(terms0: Map[Int, Double]) {
     def this(bindings: (Int, Double)*) = this(bindings.toMap) //star here means it's a repeat parameter,
     // we can pass an arbitrary number of concrete arguments

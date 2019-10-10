@@ -62,11 +62,6 @@ class Polynomial(coefficients: Double*) {
   }
 
   def multiple(another: Polynomial): Polynomial = {
-    if (getDegree < 0)
-      this
-    else if (another.getDegree < 0)
-      another
-    else {
       val deg = getDegree + another.getDegree
       val result = new Array[Double](deg + 1)
       for (i <- 0 to deg) {
@@ -77,6 +72,6 @@ class Polynomial(coefficients: Double*) {
       }
       new Polynomial(result: _*)
     }
-  }
+
 
 }

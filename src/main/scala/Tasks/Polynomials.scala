@@ -62,16 +62,14 @@ class Polynomial(coefficients: Double*) {
   }
 
   def multiple(another: Polynomial): Polynomial = {
-      val deg = getDegree + another.getDegree
-      val result = new Array[Double](deg + 1)
-      for (i <- 0 to deg) {
-        var k = 0.0
-        for (j <- 0 to i)
-          k += getCoef(j) * another.getCoef(i - j)
-        result(i) = k
-      }
-      new Polynomial(result: _*)
+    val deg = getDegree + another.getDegree
+    val result = new Array[Double](deg + 1)
+    for (i <- 0 to deg) {
+      var k = 0.0
+      for (j <- 0 to i)
+        k += getCoef(j) * another.getCoef(i - j)
+      result(i) = k
     }
-
-
+    new Polynomial(result: _*)
+  }
 }

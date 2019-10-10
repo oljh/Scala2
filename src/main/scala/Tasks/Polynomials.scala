@@ -1,57 +1,44 @@
 package Tasks
 
 object Polynomials extends App {
-  var pol = new Polynomial(5.9, 1.5, 2.3, -3.8)
+  var pol = new Polynomial(1, 2, 3, 4) //5.92, 1.5, 2.3, -3.8)
   println(pol)
 
-  println(pol.evaluate(1))
-  print(pol.add(new Polynomial(7.0,1.2,3.3,4.6,5.6,6.5,7.5,8.3)))
+  println(pol.evaluate(2))
+  println(pol.add(new Polynomial(1, 1, 1, 1)))
+  println(pol.multiple(new Polynomial(1, 1, 1, 1)))
 }
 
 class Polynomial(coefficients: Double*) {
 
   private val arrCoef = coefficients
 
-  private def createCoeffs(A: Array[Int]): Array[Int] = {
-    var s = A.length - 1
-    while (s >= 0 && A(s) == 0)
-      s -= 1
-    A take (s+1)
-  }
-
   def getDegree: Int = arrCoef.length - 1
 
-  def coef(i: Int): Double = if (i < arrCoef.length) arrCoef(i) else 0
+  private def getCoef(i: Int): Double = if (i < arrCoef.length) arrCoef(i) else 0
 
   override def toString: String = {
-    for (i <- arrCoef.indices) {
-      print(arrCoef(i))
-    }
-    println
     var result = new StringBuilder
     var plus = ""
     for (i <- getDegree to 0 by -1) {
-      if (coef(i) != 0) {
-        var cf = coef(i)
+      if (getCoef(i) != 0) {
+        var cf = getCoef(i)
         result ++= (if (cf > 0) plus else "-")
         plus = "+"
         cf = cf.abs
         if (i == 0)
-          result ++= cf.toString
+          result ++= f"$cf%.2f"
         else {
           if (cf != 1)
-            result ++= cf.toString + ""
+            result ++= f"$cf%.2f"
           if (i > 1)
-            result ++= "x^" + i.toString
+            result ++= s"x^$i"
           else
-            result ++= "x"
+            result ++= s"x"
         }
       }
     }
-
-
     result.toString
-
   }
 
   def evaluate(x: Double): Double = {
@@ -60,16 +47,18 @@ class Polynomial(coefficients: Double*) {
       var k = 1.0
       for (j <- 1 to i)
         k *= x
-      result += coef(i) * k
+      result += getCoef(i) * k
     }
     result
   }
 
   def add(another: Polynomial): Polynomial = {
     val deg = getDegree max another.getDegree
-    val result= Array[Double](8)
-    for (i <- 1 to 7){ print(result(i) = coef(i) + another.coef(i))}
-    new Polynomial(result:_*)
+    val result = new Array[Double](deg + 1)
+    for (i <- 0 to deg) {
+      result(i) = getCoef(i) + another.getCoef(i)
+    }
+    new Polynomial(result: _*)
   }
 
   def multiple(another: Polynomial): Polynomial = {
@@ -79,14 +68,14 @@ class Polynomial(coefficients: Double*) {
       another
     else {
       val deg = getDegree + another.getDegree
-      val result= Array[Double](deg+1)
+      val result = new Array[Double](deg + 1)
       for (i <- 0 to deg) {
-        var sum = 0.0
+        var k = 0.0
         for (j <- 0 to i)
-          sum += coef(j) * another.coef(i - j)
-        result(i) = sum
+          k += getCoef(j) * another.getCoef(i - j)
+        result(i) = k
       }
-      new Polynomial(result:_*)
+      new Polynomial(result: _*)
     }
   }
 

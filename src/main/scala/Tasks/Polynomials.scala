@@ -1,12 +1,12 @@
 package Tasks
 
 object Polynomials extends App {
-  var pol = new Polynomial(1, 2, 3, 4) //5.92, 1.5, 2.3, -3.8)
+  var pol = new Polynomial(1.1, 2.2, 3.3, 4.4)
   println(pol)
 
   println(pol.evaluate(2))
   println(pol.add(new Polynomial(1, 1, 1, 1)))
-  println(pol.multiple(new Polynomial(1, 1, 1, 1)))
+  println(pol.multiply(new Polynomial(1, 1, 1, 1)))
 }
 
 class Polynomial(coefficients: Double*) {
@@ -24,13 +24,13 @@ class Polynomial(coefficients: Double*) {
       if (getCoef(i) != 0) {
         var cf = getCoef(i)
         result ++= (if (cf > 0) plus else "-")
-        plus = "+"
+        plus = " + "
         cf = cf.abs
         if (i == 0)
-          result ++= f"$cf%.2f"
+          result ++= f"$cf%.1f"
         else {
           if (cf != 1)
-            result ++= f"$cf%.2f"
+            result ++= f"$cf%.1f"
           if (i > 1)
             result ++= s"x^$i"
           else
@@ -61,7 +61,7 @@ class Polynomial(coefficients: Double*) {
     new Polynomial(result: _*)
   }
 
-  def multiple(another: Polynomial): Polynomial = {
+  def multiply(another: Polynomial): Polynomial = {
     val deg = getDegree + another.getDegree
     val result = new Array[Double](deg + 1)
     for (i <- 0 to deg) {

@@ -1,0 +1,7 @@
+package Tasks
+
+object ImplementHierarchy {
+
+}
+
+

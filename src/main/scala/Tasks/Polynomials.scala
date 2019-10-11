@@ -18,24 +18,22 @@ class Polynomial(coefficients: Double*) {
   private def getCoef(i: Int): Double = if (i < arrCoef.length) arrCoef(i) else 0
 
   override def toString: String = {
-    var result = new StringBuilder
-    var plus = ""
+    val result = new StringBuilder
     for (i <- getDegree to 0 by -1) {
-      if (getCoef(i) != 0) {
-        var cf = getCoef(i)
-        result ++= (if (cf > 0) plus else "-")
-        plus = " + "
-        cf = cf.abs
-        if (i == 0)
-          result ++= f"$cf%.1f"
-        else {
-          if (cf != 1)
-            result ++= f"$cf%.1f"
-          if (i > 1)
-            result ++= s"x^$i"
-          else
-            result ++= s"x"
-        }
+      val cf = getCoef(i)
+      val symbol = if (i == getDegree) "" else if (cf > 0) " + " else "-"
+
+
+
+
+      if (cf != 0) {
+        result.append(symbol)
+        val absCF = cf.abs
+        val text = if (i == 0 || cf != 1) f"$absCF%.1f"
+        else if (i > 1)s"x^$i"
+        else
+          {s"x"}
+        result.append(text)
       }
     }
     result.toString
@@ -44,10 +42,8 @@ class Polynomial(coefficients: Double*) {
   def evaluate(x: Double): Double = {
     var result = 0.0
     for (i <- 0 to getDegree) {
-      var k = 1.0
-      for (j <- 1 to i)
-        k *= x
-      result += getCoef(i) * k
+      val r = math.pow(x, i)
+      result += getCoef(i) * r
     }
     result
   }
@@ -70,6 +66,11 @@ class Polynomial(coefficients: Double*) {
         k += getCoef(j) * another.getCoef(i - j)
       result(i) = k
     }
+// !!!!!!!!
+    for (i <- 0 to deg; j <- 0 to i) {
+      result(i + j) = getCoef(j) * another.getCoef(i - j)
+    }
+
     new Polynomial(result: _*)
   }
 }

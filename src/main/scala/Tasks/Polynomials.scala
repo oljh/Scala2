@@ -1,12 +1,12 @@
 package Tasks
 
 object Polynomials extends App {
-  var pol = new Polynomial(1.1, 2.2, 3.3, 4.4)
+  var pol = new Polynomial(1.0, 2.0, 3.0, 4.0)
   println(pol)
 
   println(pol.evaluate(2))
-  println(pol.add(new Polynomial(1, 1, 1, 1)))
-  println(pol.multiply(new Polynomial(1, 1, 1, 1)))
+  println(pol.add(new Polynomial(2, 2, 2, 2)))
+  println(pol.multiply(new Polynomial(2, 2, 2, 2)))
 }
 
 class Polynomial(coefficients: Double*) {
@@ -21,20 +21,11 @@ class Polynomial(coefficients: Double*) {
     val result = new StringBuilder
     for (i <- getDegree to 0 by -1) {
       val cf = getCoef(i)
-      val symbol = if (i == getDegree) "" else if (cf > 0) " + " else "-"
-
-
-
-
-      if (cf != 0) {
-        result.append(symbol)
-        val absCF = cf.abs
-        val text = if (i == 0 || cf != 1) f"$absCF%.1f"
-        else if (i > 1)s"x^$i"
-        else
-          {s"x"}
-        result.append(text)
-      }
+      val absCF = cf.abs
+      val symbol = if (i == getDegree) "" else if (cf > 0) " + " else " - "
+      val x = if (i > 1) s"x^$i" else if (i == 1) s"x" else if (i == 0) ""
+      val text = if (i == 0 || cf != 1) symbol + f"$absCF%.1f" + x
+      result.append(text)
     }
     result.toString
   }
@@ -60,15 +51,9 @@ class Polynomial(coefficients: Double*) {
   def multiply(another: Polynomial): Polynomial = {
     val deg = getDegree + another.getDegree
     val result = new Array[Double](deg + 1)
-    for (i <- 0 to deg) {
-      var k = 0.0
-      for (j <- 0 to i)
-        k += getCoef(j) * another.getCoef(i - j)
-      result(i) = k
-    }
-// !!!!!!!!
+
     for (i <- 0 to deg; j <- 0 to i) {
-      result(i + j) = getCoef(j) * another.getCoef(i - j)
+      result(i) += getCoef(j) * another.getCoef(i - j)
     }
 
     new Polynomial(result: _*)

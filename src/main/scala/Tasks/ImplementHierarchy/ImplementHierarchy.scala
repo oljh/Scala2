@@ -7,7 +7,7 @@ object ImplementHierarchy extends App {
   val r = new Rectangle("Green",false,2,3)
   println(r.length(5))
 
-  val s = new Square("Magenta", filled = true, width = )
+  val s = new Square("Magenta", filled = true, 5,5,3)
   println(new Rectangle("Green",false,2,3))
   println(new Square("Yellow",true,2,3,5))
 

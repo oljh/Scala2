@@ -1,6 +1,6 @@
 package Tasks.ImplementHierarchy
 
-class Circle(color: String, filled: Boolean, val radius: Double) extends Shape(color: String, filled: Boolean) {
+class Circle(val color: String,val filled: Boolean, val radius: Double) extends Shape(color: String, filled: Boolean) {
 
   import Circle._
 

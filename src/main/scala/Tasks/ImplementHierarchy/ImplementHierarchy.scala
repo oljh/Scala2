@@ -2,18 +2,18 @@ package Tasks.ImplementHierarchy
 
 
 object ImplementHierarchy extends App {
-  val c = new Circle("Red", true, 9)
+  val c = new Circle("Red",9 , true)
   println(c)
-  println(c.radius)
+  println("Radius: "+c.radius)
   println(c.radius(7))
 
-  val s = Square("Yellow", true, 5)
+  val s = new Square("Yellow", true, 5,5,5)
+  println("Size side: "+ s.side)
   println(s.color("Blue"))
 
-  val r = new Rectangle("Green", false, 2, 3)
+  val r = new Rectangle("Green", false, 4, 3)
   println(r)
-
-
+  println("Width: " +r.width +" Length: "+r.length)
 
 }
 

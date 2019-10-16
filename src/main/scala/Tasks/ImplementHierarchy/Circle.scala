@@ -4,7 +4,9 @@ class Circle(val color: String, val radius: Double, val filled: Boolean) extends
 
   import Circle._
 
-  def circle(color: String = this.color, radius: Double = this.radius, filled: Boolean = this.filled): Circle = new Circle(color, radius, filled)
+  def circle(color: String = this.color,
+             radius: Double = this.radius,
+             filled: Boolean = this.filled): Circle = new Circle(color, radius, filled)
 
   def radius(r: Double): Circle = circle(radius = r)
 
@@ -16,13 +18,12 @@ class Circle(val color: String, val radius: Double, val filled: Boolean) extends
 
   override def filled(f: Boolean): Circle = circle()
 
-  override def toString = s"Circle(radius = $radius,color = $color, filled = $filled, perimeter = $perimeter,area = $area)"
+  override def toString = s"Circle(color = $color, filled = $filled,radius = $radius, perimeter = $perimeter,area = $area)"
 
 }
 
 object Circle {
-  def apply(color: String, radius: Double, filled: Boolean): Circle = new Circle(color, radius, filled
-  )
+  def apply(color: String, radius: Double, filled: Boolean): Circle = new Circle(color, radius, filled)
 
   private def calculateArea(radius: Double): Double = Math.PI * Math.pow(radius, 2)
 

@@ -7,7 +7,7 @@ object ImplementHierarchy extends App {
   println("Radius: "+c.radius)
   println(c.radius(7))
 
-  val s = new Square("Yellow", true, 5,5,5)
+  val s = Square("Yellow", true, 5,5,5)
   println("Size side: "+ s.side)
   println(s.color("Blue"))
 

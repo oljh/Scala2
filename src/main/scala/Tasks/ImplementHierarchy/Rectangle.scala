@@ -25,7 +25,7 @@ class Rectangle(val color: String, val filled: Boolean, val width: Double, val l
   override def filled(f: Boolean): Rectangle = rectangle(filled = f)
 
 
-  override def toString = s"Rectangle(width = $width, length = $length, color = $color, filled = $filled, perimeter = $perimeter,area = $area)"
+  override def toString = s"Rectangle(color = $color, filled = $filled, width = $width, length = $length, perimeter = $perimeter,area = $area)"
 
 }
 

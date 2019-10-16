@@ -24,12 +24,11 @@ class Square(color: String, filled: Boolean, width: Double, length: Double, val 
 
   override def filled(f: Boolean): Square = square(filled = f)
 
-  override def toString = s"Square(side = $side,color = $color, filled = $filled, perimeter = $perimeter,area = $area)"
+  override def toString = s"Square(color = $color, filled = $filled, side = $side, perimeter = $perimeter,area = $area)"
 }
 
 object Square {
-  def apply(color: String, filled: Boolean, width: Double, length: Double, side: Double
-           ): Square = new Square(color, filled, width, length, side)
+  def apply(color: String, filled: Boolean, width: Double, length: Double, side: Double): Square = new Square(color, filled, width, length, side)
 }
 
 

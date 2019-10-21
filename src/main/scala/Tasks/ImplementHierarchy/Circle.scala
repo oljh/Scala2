@@ -16,7 +16,7 @@ class Circle(val color: String, val radius: Double, val filled: Boolean) extends
 
   override def color(c: String): Circle = circle(color = c)
 
-  override def filled(f: Boolean): Circle = circle()
+  override def filled(f: Boolean): Circle = circle(filled = f)
 
   override def toString = s"Circle(color = $color, filled = $filled,radius = $radius, perimeter = $perimeter,area = $area)"
 

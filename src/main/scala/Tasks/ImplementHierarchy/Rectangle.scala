@@ -1,21 +1,39 @@
 package Tasks.ImplementHierarchy
 
-class Rectangle(color: String, filled: Boolean, width: Double, length: Double) extends Shape(color: String, filled: Boolean) {
+class Rectangle(val color: String, val filled: Boolean, val width: Double, val length: Double) extends Shape(color: String, filled: Boolean) {
 
-  def width(w: Double): Rectangle = new Rectangle(color, filled, w, length)
+  import Rectangle._
 
-  def length(l: Double): Rectangle = new Rectangle(color, filled, width, l)
-
-
-  override def perimeter: Double = 2*width+2*length
-
-  override def area: Double = width*length
+  def rectangle(color: String = this.color,
+                filled: Boolean = this.filled,
+                width: Double = this.width,
+                length: Double = this.length): Rectangle = new Rectangle(color: String, filled: Boolean, width: Double, length: Double)
 
 
-  override def color(c: String): Rectangle = new Rectangle(c, filled, width, length )
+  def width(w: Double): Rectangle = rectangle(width = w)
 
-  override def filled(f: Boolean): Rectangle = new Rectangle(color, f, width, length )
+  def length(l: Double): Rectangle = rectangle(length = l)
 
 
-  override def toString = s"Rectangle(width = $width, length = $length, color = $color, filled = $filled, perimeter = $perimeter,area = $area)"
+  override def perimeter: Double = calculatePerimeter(width: Double, length: Double)
+
+  override def area: Double = calculateArea(width: Double, length: Double)
+
+
+  override def color(c: String): Rectangle = rectangle(color = c)
+
+  override def filled(f: Boolean): Rectangle = rectangle(filled = f)
+
+
+  override def toString = s"Rectangle(color = $color, filled = $filled, width = $width, length = $length, perimeter = $perimeter,area = $area)"
+
+}
+
+object Rectangle {
+  def apply(color: String, filled: Boolean, width: Double, length: Double): Rectangle = new Rectangle(
+    color, filled, width, length)
+
+  def calculateArea(width: Double, length: Double): Double = width * length
+
+  def calculatePerimeter(width: Double, length: Double): Double = 2 * (width + length)
 }

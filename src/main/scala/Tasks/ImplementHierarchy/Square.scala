@@ -1,20 +1,38 @@
 package Tasks.ImplementHierarchy
 
-class Square(color: String, filled: Boolean, width: Double, length: Double, side: Double) extends Rectangle(color: String, filled: Boolean, width: Double, length: Double) {
+class Square(color: String, filled: Boolean, width: Double, length: Double, val side: Double) extends Rectangle(color: String, filled: Boolean, width: Double, length: Double) {
 
-  def side(s: Double): Square = new Square(color, filled, side, side,s)
-
-  override def length(l: Double): Square = new Square(color, filled, side, side,side)
-
-  override def perimeter: Double = side * 4
-
-  override def area: Double = Math.pow(side, 2)
+  def square(color: String = this.color,
+             filled: Boolean = this.filled,
+             width: Double = this.width,
+             length: Double = this.length,
+             side: Double = this.side): Square = new Square(color: String, filled: Boolean, width: Double, length: Double, side: Double)
 
 
-  override def color(c: String): Square = new Square(c, filled, width, length,side)
+  def side(s: Double): Square = square(side = s)
 
-  override def filled(f: Boolean): Square = new Square(color, f, width, length,side)
+  override def width(w: Double): Square = square(width = side)
 
-  override def toString = s"Square(side = $side,color = $color, filled = $filled, perimeter = $perimeter,area = $area)"
+  override def length(l: Double): Square = square(length = side)
+
+  override def perimeter: Double = Rectangle.calculatePerimeter(side, side)
+
+  override def area: Double = Rectangle.calculateArea(side, side)
+
+
+  override def color(c: String): Square = square(color = c)
+
+  override def filled(f: Boolean): Square = square(filled = f)
+
+  override def toString = s"Square(color = $color, filled = $filled, side = $side, perimeter = $perimeter,area = $area)"
 }
+
+object Square {
+  def apply(color: String, filled: Boolean, width: Double, length: Double, side: Double): Square = new Square(color, filled, width, length, side)
+}
+
+
+
+
+
 

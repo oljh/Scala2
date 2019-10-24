@@ -7,11 +7,12 @@ case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
 object TestTree extends App {
   val l:Leaf[Int] = Leaf[Int](9)
   val l2:Leaf[Int] = Leaf[Int](4)
-  val b:Branch[Int] = Branch[Int](l,l)
+  val b:Branch[Int] = Branch[Int](l,l2)
 
   println(Tree.size(l))
   println(Tree.size(b))
   println(Tree.maximum(b))
+  println(Tree.depth(b))
 
 
 }

@@ -4,7 +4,12 @@ case class Leaf[A](value: A) extends Tree[A]
 
 case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
 
-object TestTree {
+object TestTree extends App {
+  val l:Leaf[Int] = Leaf[Int](9)
+  val b:Branch[Int] = Branch[Int](l,l)
+
+  println(Tree.size(l))
+  println(Tree.size(b))
 
 
 }

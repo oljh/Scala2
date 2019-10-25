@@ -5,19 +5,19 @@ case class Leaf[A](value: A) extends Tree[A]
 case class Branch[A](left: Tree[A], right: Tree[A]) extends Tree[A]
 
 object TestTree extends App {
-  val l:Leaf[Int] = Leaf[Int](9)
-  val l2:Leaf[Int] = Leaf[Int](4)
-  val b:Branch[Int] = Branch[Int](Branch[Int](l,l2),Branch[Int](l,l2))
+  val l: Leaf[Int] = Leaf[Int](9)
+  val l2: Leaf[Int] = Leaf[Int](4)
+  val b: Branch[Int] = Branch[Int](Branch[Int](l, l2), Branch[Int](l, l2))
   println("Size (Leaves) ->" + Tree.size(l))
-  println("Leaves and branches ->" + Tree.size(b))
+  println("Size (Leaves and branches) ->" + Tree.size(b))
   println("Max ->" + Tree.maximum(b))
-  println("Depth ->" +Tree.depth(b))
-  println("Map ->"+Tree.map(l)(_ => 5))
-  println("Size(Leaves) ->" +Tree.sizeUsingFold(l))
+  println("Depth ->" + Tree.depth(b))
+  println("Map ->" + Tree.map(l)(_ => 5))
+  println("Size (Leaves) ->" + Tree.sizeUsingFold(l))
   println("Size (Leaves and branches)  ->" + Tree.sizeUsingFold(b))
   println("Max ->" + Tree.maximumUsingFold(b))
-  println("Depth ->" +Tree.depthUsingFold(b))
-  println("Map ->"+Tree.mapUsingFold(l)(_ =>5))
+  println("Depth ->" + Tree.depthUsingFold(b))
+  println("Map ->" + Tree.mapUsingFold(l)(_ => 5))
 }
 
 object Tree {
@@ -33,7 +33,7 @@ object Tree {
 
   def depth[A](t: Tree[A]): Int = t match {
     case Leaf(_) => 0
-    case Branch(l, r) => depth(l) max depth(r) + 1
+    case Branch(l, r) => 1 + (depth(l) max depth(r))
   }
 
   def map[A, B](t: Tree[A])(f: A => B): Tree[B] = t match {
@@ -51,13 +51,13 @@ object Tree {
   }
 
   def sizeUsingFold[A](t: Tree[A]): Int =
-    fold(t)(v => 1)(1 + _ + _)
+    fold(t)(_ => 1)(1 + _ + _)
 
   def maximumUsingFold(t: Tree[Int]): Int =
     fold(t)(v => v)(_ max _)
 
   def depthUsingFold[A](t: Tree[A]): Int =
-    fold(t)(v => 0)((d1, d2) => 1+ d1 max d2)
+    fold(t)(_ => 0)((d1, d2) => 1 + (d1 max d2))
 
   def mapUsingFold[A, B](t: Tree[A])(f: A => B): Tree[B] =
     fold(t)(v => Leaf(f(v)): Tree[B])(Branch(_, _))

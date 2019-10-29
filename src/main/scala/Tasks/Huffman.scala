@@ -1,10 +1,14 @@
 package patmat
+
 object HuffmanCodeTest extends App {
+
   import Huffman._
-  val t1 = Fork(Fork(Leaf('a',2), Leaf('b',3), List('a','b'), 5), Leaf('d',4), List('a','b','d'), 9)
+
+  val t1 = Fork(Fork(Leaf('a', 2), Leaf('b', 3), List('a', 'b'), 5), Leaf('d', 4), List('a', 'b', 'd'), 9)
   val enc1 = encode(t1)(string2Chars("abd"))
-  println( enc1 )
-  println( quickEncode(t1)(string2Chars("abd")) )
+  println(enc1)
+
+  println(quickEncode(t1)(string2Chars("abd")))
   println(decodedSecret)
 }
 
@@ -186,7 +190,7 @@ object Huffman {
   /**
     * Write a function that returns the decoded secret
     */
-  def decodedSecret: List[Char] = decode(frenchCode,secret)
+  def decodedSecret: List[Char] = decode(frenchCode, secret)
 
 
   // Part 4a: Encoding using Huffman tree
@@ -195,14 +199,16 @@ object Huffman {
     * This function encodes `text` using the code tree `tree`
     * into a sequence of bits.
     */
+
   def encode(tree: CodeTree)(text: List[Char]): List[Bit] = {
-    def lookup(tree:  CodeTree)(c: Char): List[Bit] = tree match {
+
+    def folder(tree: CodeTree)(c: Char): List[Bit] = tree match {
       case Leaf(_, _) => List()
-      case Fork(left, _, _, _) if chars(left).contains(c) => 0 :: lookup(left)(c)
-      case Fork(_, right, _, _) => 1 :: lookup(right)(c)
+      case Fork(left, _, _, _) if chars(left).contains(c) => 0 :: folder(left)(c)
+      case Fork(_, right, _, _) => 1 :: folder(right)(c)
     }
 
-    text flatMap lookup(tree)
+    text flatMap folder(tree)
   }
 
   // Part 4b: Encoding using code table
@@ -216,6 +222,7 @@ object Huffman {
   def codeBits(table: CodeTable)(char: Char): List[Bit] = {
     table.filter((code) => code._1 == char).head._2
   }
+
   /**
     * Given a code tree, create a code table which contains, for every character in the
     * code tree, the sequence of bits representing that character.
@@ -225,7 +232,7 @@ object Huffman {
     * sub-trees, think of how to build the code table for the entire tree.
     */
   def convert(tree: CodeTree): CodeTable = tree match {
-    case Leaf(c, _) => List( (c, List()) )
+    case Leaf(c, _) => List((c, List()))
     case Fork(left, right, _, _) => mergeCodeTables(convert(left), convert(right))
   }
 

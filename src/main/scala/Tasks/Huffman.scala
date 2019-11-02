@@ -88,7 +88,9 @@ object Huffman {
     /*val freq = Map[Char, Int]()
     for (c <- chars) freq(c) = freq.getOrElse(c, 0) + 1
 */
-    (Map[Char, Int]() /: chars) { (m, c) => m + (c -> (m.getOrElse(c, 0) + 1)) }.toList
+    /*(Map[Char, Int]() /: chars) { (m, c) => m + (c -> (m.getOrElse(c, 0) + 1)) }.toList*/
+
+    chars.groupBy(x => x).map(t => (t._1, t._2.length)).iterator.toList
   }
 
   /**
@@ -99,12 +101,15 @@ object Huffman {
     * of a leaf is the frequency of the character.
     */
   def makeOrderedLeafList(freqs: List[(Char, Int)]): List[Leaf] =
-    freqs.sortBy(t => (t._2, t._1)).map(leaf => Leaf(leaf._1, leaf._2))
+   // freqs.sortBy(t => (t._2, t._1)).map(leaf => Leaf(leaf._1, leaf._2))
+
+
+ freqs.sortWith((f1,f2) => f1._2 < f2._2).map((f) => Leaf (f._1, f._2))
 
   /**
     * Checks whether the list `trees` contains only one single code tree.
     */
-  def singleton(trees: List[CodeTree]): Boolean = if (trees.size == 1) true else false
+  def singleton(trees: List[CodeTree]): Boolean = trees.size == 1
 
   /**
     * The parameter `trees` of this function is a list of code trees ordered
@@ -119,7 +124,7 @@ object Huffman {
     * unchanged.
     */
   def combine(trees: List[CodeTree]): List[CodeTree] = trees match {
-    case left :: right :: Nil => (makeCodeTree(left, right) :: Nil).sortWith((w1, w2) => weight(w1) < weight(w2))
+    case left :: right :: ch => (makeCodeTree(left, right) :: ch).sortWith((w1, w2) => weight(w1) < weight(w2))
     case _ => trees
   }
 
